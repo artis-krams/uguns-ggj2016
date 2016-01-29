@@ -3,20 +3,17 @@ using System.Collections;
 
 public class ResetLogic : MonoBehaviour {
 
-	private bool mouseEntered;
+	public GameObject item;
+	private GameObject currentItem;
 
-	void Update () {
-
-		if (mouseEntered == true && Input.GetMouseButtonDown (0)) {
-			//TODO: logic goes here
-		}
+	void Awake() {
+		currentItem = (GameObject) GameObject.Instantiate (item, transform.position, transform.rotation);
+		currentItem.transform.parent = transform;
 	}
 
-	void OnMouseEnter() {
-		mouseEntered = true;
-	}
-
-	void OnMouseExit() {
-		mouseEntered = false;
+	void OnMouseDown() {
+		Destroy (currentItem);
+		currentItem = (GameObject) GameObject.Instantiate (item, transform.position, transform.rotation);
+		currentItem.transform.parent = transform;
 	}
 }
