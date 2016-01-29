@@ -1,11 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
 
-	public double time;
+	public float time;
+
+	public Slider timeIndicator;
 
 	public BurnLogic burnLogic;
+
+	private float initialTime;
+
+	public float procentage = 1f;
+
+	void Awake() {
+		initialTime = time;
+	}
 	
 	// Update is called once per frame
 	void Update()
@@ -13,7 +24,12 @@ public class Timer : MonoBehaviour {
 
 		time -= Time.deltaTime;
 
-		if (time <= 0) {
+		procentage = (time / initialTime);
+
+		timeIndicator.value = procentage;
+
+		if (time <= 0 && burnLogic != null)
+		{
 			burnLogic.burn();
 		}
 
