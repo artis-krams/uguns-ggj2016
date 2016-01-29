@@ -30,6 +30,7 @@ public class Timer : MonoBehaviour {
 
 		if (time <= 0 && burnLogic != null)
 		{
+            LevelManager.level++;
 			burnLogic.burn();
 		}
 
