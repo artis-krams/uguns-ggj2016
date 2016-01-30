@@ -26,6 +26,7 @@ public class Timer : MonoBehaviour
         {
            // Debug.Log("destroy object in timer");
             Destroy(gameObject);
+			return;
         }
 
         time -= Time.deltaTime;
