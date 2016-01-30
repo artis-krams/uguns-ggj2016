@@ -2,47 +2,42 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour {
+public class Timer : MonoBehaviour
+{
+    public float startTime = 5f;
+    public Slider timeIndicator;
+    public bool timeEnded = false;
+    public BurnLogic burnLogic;
+    public float procentage = 1f;
 
-	private float time;
+    private float time;
+    private float initialTime;
 
-	public float startTime = 5f;
+    void Awake()
+    {
+        initialTime = startTime / LevelManager.level;
+        time = initialTime;
+    }
 
-	public Slider timeIndicator;
+    // Update is called once per frame
+    void Update()
+    {
+        if (timeEnded == true)
+        {
+           // Debug.Log("destroy object in timer");
+            Destroy(gameObject);
+        }
 
-	public bool timeEnded = false;
+        time -= Time.deltaTime;
 
-	public BurnLogic burnLogic;
+        procentage = (time / initialTime);
 
-	private float initialTime;
+        timeIndicator.value = procentage;
 
-	public float procentage = 1f;
-
-	void Awake() {
-		initialTime = startTime / LevelManager.level;
-		time = initialTime;
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-		if (timeEnded == true) {
-			Debug.Log ("destroy object in timer");
-			Destroy (gameObject);
-		}
-
-		time -= Time.deltaTime;
-
-		procentage = (time / initialTime);
-
-		timeIndicator.value = procentage;
-
-		if (time <= 0 && burnLogic != null)
-		{
-            LevelManager.level += 0.1f;
-			burnLogic.burn();
-			timeEnded = true;
-		}
-
-	}
+        if (time <= 0 && burnLogic != null)
+        {
+            burnLogic.burn();
+            timeEnded = true;
+        }
+    }
 }
