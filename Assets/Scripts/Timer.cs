@@ -4,9 +4,13 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
 
-	public float time;
+	private float time;
+
+	public float startTime = 5f;
 
 	public Slider timeIndicator;
+
+	public bool timeEnded = false;
 
 	public BurnLogic burnLogic;
 
@@ -15,12 +19,17 @@ public class Timer : MonoBehaviour {
 	public float procentage = 1f;
 
 	void Awake() {
-		initialTime = time;
+		initialTime = startTime / LevelManager.level;
+		time = initialTime;
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
+		if (timeEnded == true) {
+			Debug.Log ("destroy object in timer");
+			Destroy (gameObject);
+		}
 
 		time -= Time.deltaTime;
 
@@ -30,8 +39,9 @@ public class Timer : MonoBehaviour {
 
 		if (time <= 0 && burnLogic != null)
 		{
-            LevelManager.level++;
+            LevelManager.level += 0.1f;
 			burnLogic.burn();
+			timeEnded = true;
 		}
 
 	}
