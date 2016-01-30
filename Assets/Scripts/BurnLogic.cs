@@ -4,9 +4,10 @@ using System.Collections;
 public class BurnLogic : MonoBehaviour
 {
     public GameObject Fire;
+	public bool bad;
+	public int score;
 
     private int FireStrength = 1;
-    private int Score = 0;
 
     // Use this for initialization
     void Start()
@@ -20,8 +21,8 @@ public class BurnLogic : MonoBehaviour
 
     }
 
-    public void burn(bool isBad = false)
+    public void burn()
     {
-        Score += isBad ? 1 : -1;
+		LevelManager.score += bad ? score : -score;
     }
 }
